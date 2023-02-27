@@ -1,0 +1,4 @@
+.idea
+app/disk/__pycache__/
+app/keys/__pycache__/
+app/__pycache__/
