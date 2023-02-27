@@ -115,7 +115,7 @@ class Function:
                 print("Cath the link dude ---> ", response['href'])
             case '3':
                 path = input("Enter public key url \U000023E9: ")
-                requests.put(
+                requests.post(
                     "https://cloud-api.yandex.net/v1/disk/public/resources/save-to-disk?public_key=" + path,
                     headers={'Authorization': f'OAuth {token}'}).json()
                 print("Successfully downloaded :)")
