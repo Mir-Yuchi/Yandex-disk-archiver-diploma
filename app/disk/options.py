@@ -139,15 +139,21 @@ class Function:
                 response = requests.get("https://cloud-api.yandex.net/v1/disk/trash/resources?path=%2F",
                                         headers={'Authorization': f'OAuth {token}'}).json()
                 total_items = response['_embedded']['total']
-                print("Total items: ", total_items, 50 * "-", "\n")
+                print("Total items: ", total_items, '\n', 50 * "-", "\n")
                 if total_items == 0:
                     print("No items in catalog")
                 else:
                     for item in response['_embedded']['items']:
-                        print("Name: ", item['name'], "|| Origin path --> ", item['origin_path'],
+                        print("Name: ", item['name'], "|| Path --> ", item['path'],
                               "\n", 50 * "-", "\n")
             case '3':
-                print("|---Under construction---|")
+                path = input("Enter path\U000023E9: ")
+                response = requests.put("https://cloud-api.yandex.net/v1/disk/trash/resources/restore?path=%2F" + path,
+                                        headers={'Authorization': f'OAuth {token}'}).json()
+                if 'description' in response:
+                    print(response['description'])
+                else:
+                    print("Successfully restored \U00002705")
             case '4':
                 return run.app(token)
             case _:

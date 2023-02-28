@@ -1,4 +1,5 @@
 from app.disk import options
+import time
 
 
 def greeting(is_token):
@@ -44,4 +45,5 @@ def app(is_token):
             exit()
         case _:
             print("Wrong option \U0001F6AB")
+    time.sleep(2)
     return app(is_token)
