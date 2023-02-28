@@ -136,9 +136,18 @@ class Function:
                                 headers={'Authorization': f'OAuth {token}'}).json()
                 print("Trash Successfully deleted\U00002705")
             case '2':
-                print("|--Under construction--|")
+                response = requests.get("https://cloud-api.yandex.net/v1/disk/trash/resources?path=%2F",
+                                        headers={'Authorization': f'OAuth {token}'}).json()
+                total_items = response['_embedded']['total']
+                print("Total items: ", total_items, 50 * "-", "\n")
+                if total_items == 0:
+                    print("No items in catalog")
+                else:
+                    for item in response['_embedded']['items']:
+                        print("Name: ", item['name'], "|| Origin path --> ", item['origin_path'],
+                              "\n", 50 * "-", "\n")
             case '3':
-                print("|--Under construction--|")
+                print("|---Under construction---|")
             case '4':
                 return run.app(token)
             case _:
