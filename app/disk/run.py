@@ -1,9 +1,13 @@
 from app.disk import options
 
 
+def greeting(is_token):
+    print("\t\tWelcome", options.Function.get_user_json(is_token)['user']['display_name'], "\U0001F44B")
+    print(50 * "-", "\n")
+
+
 def app(is_token):
-    print("\t\tWelcome", options.Function.get_user_json(is_token)['user']['display_name'], "\U0001F44B",
-          "\n\t\t\tHere is some options for you \U0001F447 \n",
+    print("\n\t\t\tHere is some options for you \U0001F447 \n",
           "\t1 - Information About User Disk \U0001F4D1"
           "\n\t2 - Files and Folders \U0001F5C2"
           "\n\t3 - Public Files and Folders \U0001F50E"
@@ -40,3 +44,4 @@ def app(is_token):
             exit()
         case _:
             print("Wrong option \U0001F6AB")
+    return app(is_token)

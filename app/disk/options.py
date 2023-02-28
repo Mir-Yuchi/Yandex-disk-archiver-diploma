@@ -1,5 +1,6 @@
 import requests
 import math
+from app.disk import run
 
 
 def convert_size(size_bytes):  # bite converter
@@ -38,7 +39,8 @@ class Function:
                             "\n\t 2 - Deleting files \U0001F6AE"
                             "\n\t 3 - Get a link to download files \U0001F4E5"
                             "\n\t 4 - Get a link to upload files \U0001F4E4"
-                            "\n\t 5 - Upload files to disk by URL \U0001F4E4 \U0001F4E5 \n")
+                            "\n\t 5 - Upload files to disk by URL \U0001F4E4 \U0001F4E5 "
+                            "\n\t 6 - Back to the main menu \U0001F519 \n")
         match next_choice:
             case '1':
                 path = input("Enter name: ")
@@ -78,13 +80,19 @@ class Function:
                     print(publish['description'])
                 else:
                     print("Successfully downloaded :)")
+            case '6':
+                return run.app(token)
+            case _:
+                print("Wrong choice \U0001F61E")
+                return Function.get_files_folders(token)
 
     @staticmethod
     def public_files_and_folders(token):
         next_choice = input("\t\t\tChoose option \U0001F447"
                             "\n\t 1 - Get meta information about public file in catalog  \U00002139"
                             "\n\t 2 - Get a link to download a public resource \U0001F517"
-                            "\n\t 3 - Save the public resource to the Downloads folder \U0001F4BE \n")
+                            "\n\t 3 - Save the public resource to the Downloads folder \U0001F4BE \n"
+                            "\n\t 4 - Back to the main menu \U0001F519 \n")
         match next_choice:
             case '1':
                 path = input("Enter public key url \U000023E9: ")
@@ -110,12 +118,18 @@ class Function:
                     "https://cloud-api.yandex.net/v1/disk/public/resources/save-to-disk?public_key=" + path,
                     headers={'Authorization': f'OAuth {token}'}).json()
                 print("Successfully downloaded :)")
+            case '4':
+                return run.app(token)
+            case _:
+                print("Wrong choice \U0001F61E")
+                return Function.public_files_and_folders(token)
 
     @staticmethod
     def trash_func(token):
         next_choice = input("\t1 - Trash Delete\U0000267B \n"
                             "\t2 - Get trash container \U0001F5D1 \n"
-                            "\t3 - Trash Restore\U0001F5D1 \n")
+                            "\t3 - Trash Restore\U0001F5D1 \n"
+                            "\t4 - Back to the main menu \U0001F519 \n")
         match next_choice:
             case '1':
                 requests.delete("https://cloud-api.yandex.net/v1/disk/trash/resources",
@@ -125,3 +139,8 @@ class Function:
                 print("|--Under construction--|")
             case '3':
                 print("|--Under construction--|")
+            case '4':
+                return run.app(token)
+            case _:
+                print("Wrong choice \U0001F61E")
+                return Function.trash_func(token)
