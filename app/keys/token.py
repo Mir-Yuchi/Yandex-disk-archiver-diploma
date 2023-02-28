@@ -13,6 +13,6 @@ def get_token():
         'client_secret': SECRET
     })
     if response.status_code != 200:
-        print(response.json())
+        print(response.json()["error_description"])
         return
     return response.json()["access_token"]

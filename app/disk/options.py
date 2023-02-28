@@ -80,15 +80,6 @@ class Function:
                     print("Successfully downloaded :)")
 
     @staticmethod
-    def trash_func(token):
-        next_choice = input("\t1 - Trash Delete\U0000267B")
-        match next_choice:
-            case '1':
-                requests.delete("https://cloud-api.yandex.net/v1/disk/trash/resources",
-                                headers={'Authorization': f'OAuth {token}'}).json()
-                print("Trash Successfully deleted\U00002705")
-
-    @staticmethod
     def public_files_and_folders(token):
         next_choice = input("\t\t\tChoose option \U0001F447"
                             "\n\t 1 - Get meta information about public file in catalog  \U00002139"
@@ -119,3 +110,18 @@ class Function:
                     "https://cloud-api.yandex.net/v1/disk/public/resources/save-to-disk?public_key=" + path,
                     headers={'Authorization': f'OAuth {token}'}).json()
                 print("Successfully downloaded :)")
+
+    @staticmethod
+    def trash_func(token):
+        next_choice = input("\t1 - Trash Delete\U0000267B \n"
+                            "\t2 - Get trash container \U0001F5D1 \n"
+                            "\t3 - Trash Restore\U0001F5D1 \n")
+        match next_choice:
+            case '1':
+                requests.delete("https://cloud-api.yandex.net/v1/disk/trash/resources",
+                                headers={'Authorization': f'OAuth {token}'}).json()
+                print("Trash Successfully deleted\U00002705")
+            case '2':
+                print("|--Under construction--|")
+            case '3':
+                print("|--Under construction--|")
