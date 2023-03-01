@@ -35,14 +35,29 @@ class Function:
     def get_files_folders(token):
         resources = 'https://cloud-api.yandex.net/v1/disk/resources/'
         next_choice = input("\t\t\tChoose option \U0001F447"
-                            "\n\t 1 - Create a folder \U0001F4C2"
-                            "\n\t 2 - Deleting files \U0001F6AE"
-                            "\n\t 3 - Get a link to download files \U0001F4E5"
-                            "\n\t 4 - Get a link to upload files \U0001F4E4"
-                            "\n\t 5 - Upload files to disk by URL \U0001F4E4 \U0001F4E5 "
-                            "\n\t 6 - Back to the main menu \U0001F519 \n")
+                            "\n\t 1 - Get a list of files and folders \U0001F5C2"
+                            "\n\t 2 - Create a folder \U0001F4C2"
+                            "\n\t 3 - Deleting files \U0001F6AE"
+                            "\n\t 4 - Get a link to download files \U0001F4E5"
+                            "\n\t 5 - Get a link to upload files \U0001F4E4"
+                            "\n\t 6 - Upload files to disk by URL \U0001F4E4 \U0001F4E5 "
+                            "\n\t 7 - Back to the main menu \U0001F519 \n")
         match next_choice:
             case '1':
+                response = requests.get("https://cloud-api.yandex.net/v1/disk/resources?path=%2F",
+                                        headers={'Authorization': f'OAuth {token}'}).json()
+                total = response['_embedded']['total']
+                print("Total files and folders: ", total, "\n")
+                for item in response['_embedded']['items']:
+                    print("Name is: ", item['name'])
+                    if item['type'] == 'dir':
+                        print("Type is: Folder \U0001F4C1")
+                    elif item['type']:
+                        print("Type is: ", item['media_type'])
+                    print("Path is: ", item['path'])
+                    print(50 * "-")
+                return Function.get_files_folders(token)
+            case '2':
                 path = input("Enter name: ")
                 files = requests.put(resources + f"?path=%2F{path}",
                                      headers={'Authorization': f'OAuth {token}'}).json()
@@ -50,12 +65,12 @@ class Function:
                     print(files['description'])
                 else:
                     print("Folder successfully created :)")
-            case '2':
+            case '3':
                 path = input("  Enter name: ")
                 requests.delete(resources + f"?path=%2F{path}",
                                 headers={'Authorization': f'OAuth {token}'})
                 print("Successfully deleted :)")
-            case '3':
+            case '4':
                 path = input("Enter path\U000023E9: ")
                 download = requests.get(resources + f"download?path=%2F{path}",
                                         headers={'Authorization': f'OAuth {token}'}).json()
@@ -63,7 +78,7 @@ class Function:
                     print(download['description'])
                 else:
                     print("Cath the link dude -> ", download["href"])
-            case '4':
+            case '5':
                 path = input("Enter path\U000023E9: ")
                 upload = requests.get(resources + f"upload?path=%2F{path}",
                                       headers={'Authorization': f'OAuth {token}'}).json()
@@ -71,7 +86,7 @@ class Function:
                     print(upload['description'])
                 else:
                     print("Cath the link dude -> ", upload["href"])
-            case '5':
+            case '6':
                 url = input("Enter URL\U0001F517: ")
                 path = input("Enter PATH\U000023E9: ")
                 publish = requests.post(resources + f"upload?url={url}&path=%2F{path}",
@@ -80,7 +95,7 @@ class Function:
                     print(publish['description'])
                 else:
                     print("Successfully downloaded :)")
-            case '6':
+            case '7':
                 return run.app(token)
             case _:
                 print("Wrong choice \U0001F61E")
