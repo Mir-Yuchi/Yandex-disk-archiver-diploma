@@ -14,9 +14,6 @@ def convert_size(size_bytes):  # bite converter
 
 
 class Function:
-    def __init__(self):
-        pass
-
     @staticmethod
     def get_user_json(token):
         response = requests.get('https://cloud-api.yandex.net/v1/disk', headers={'Authorization': f'OAuth {token}'})

@@ -1,4 +1,4 @@
-from app.disk import options
+from app.disk import options, addditional_options
 import time
 
 
@@ -34,7 +34,7 @@ def app(is_token):
         case "4":
             options.Function.trash_func(is_token)
         case "5":
-            pass
+            addditional_options.PlusFunction.from_vk(is_token)
         case "6":
             pass
         case "7":
