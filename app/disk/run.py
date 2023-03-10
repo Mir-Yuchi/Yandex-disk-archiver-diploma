@@ -38,7 +38,7 @@ def app(is_token):
         case "6":
             pass
         case "7":
-            pass
+            addditional_options.PlusFunction.manually(is_token)
         case "8":
             pass
         case "0":
