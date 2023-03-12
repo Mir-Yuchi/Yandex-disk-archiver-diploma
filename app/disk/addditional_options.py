@@ -71,7 +71,7 @@ class PlusFunction:
             case "1":
                 folder_name = input("Enter folder name --> ")
             case "2":
-                folder_name = "images_from_vk"
+                folder_name = "manually_passed"
                 requests.put(f"https://cloud-api.yandex.net/v1/disk/resources/?path=%2F{folder_name}",
                              headers={'Authorization': f'OAuth {is_token}'}).json()
             case _:
