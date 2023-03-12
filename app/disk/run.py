@@ -36,11 +36,11 @@ def app(is_token):
         case "5":
             addditional_options.PlusFunction.from_vk(is_token)
         case "6":
-            pass
+            print("Sorry, this option is not available yet \U0001F6AB")
         case "7":
             addditional_options.PlusFunction.manually(is_token)
         case "8":
-            pass
+            print("Sorry, this option is not available yet \U0001F6AB")
         case "0":
             exit()
         case _:
