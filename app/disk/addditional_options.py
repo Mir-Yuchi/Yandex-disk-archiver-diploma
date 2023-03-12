@@ -77,3 +77,7 @@ class PlusFunction:
                 return PlusFunction.manually(is_token)
         name = f"/{folder_name}/photo.jpg"
         PlusFunction.upload_by_url(is_token, name, url)
+
+    @staticmethod
+    def from_instagram(is_token):
+        pass

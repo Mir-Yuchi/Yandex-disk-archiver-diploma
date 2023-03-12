@@ -36,7 +36,7 @@ def app(is_token):
         case "5":
             addditional_options.PlusFunction.from_vk(is_token)
         case "6":
-            pass
+            addditional_options.PlusFunction.from_instagram(is_token)
         case "7":
             addditional_options.PlusFunction.manually(is_token)
         case "8":
