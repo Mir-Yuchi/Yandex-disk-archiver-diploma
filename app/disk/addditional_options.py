@@ -1,5 +1,5 @@
 import requests
-from bs4 import BeautifulSoup
+from app.keys import VK_TOKEN, VK_VERSION
 
 
 class PlusFunction:
@@ -24,13 +24,11 @@ class PlusFunction:
 
     @staticmethod
     def from_vk(is_token):
-        token = '34e9587d34e9587d34e9587de337fbbcb8334e934e9587d50e929d9a48d0e9356ae13c5'
-        version = 5.131
         domain = input("Enter VK id or username --> ")
         res = requests.get('https://api.vk.com/method/wall.get',
                            params={
-                               'access_token': token,
-                               'v': version,
+                               'access_token': VK_TOKEN,
+                               'v': VK_VERSION,
                                'domain': domain
                            }).json()
         total = res['response']['count']
