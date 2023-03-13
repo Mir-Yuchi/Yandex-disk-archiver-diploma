@@ -1,8 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
-
-
+from app.disk import run
 class PlusFunction:
 
     @staticmethod
@@ -107,3 +106,11 @@ class PlusFunction:
 
         name = f"/{folder_name}/photo.jpg"
         PlusFunction.upload_by_url(is_token, name, url_photo)
+
+    @staticmethod
+    def from_vk_and_instagram(is_token):
+        print("\n\t|---------------FROM VK---------------|\n")
+        PlusFunction.from_vk(is_token)
+        print("\n\t|---------------FROM INSTAGRAM---------------|\n")
+        PlusFunction.from_instagram(is_token)
+        return run.app(is_token)

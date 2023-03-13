@@ -40,7 +40,7 @@ def app(is_token):
         case "7":
             addditional_options.PlusFunction.manually(is_token)
         case "8":
-            print("Sorry, this option is not available yet \U0001F6AB")
+            addditional_options.PlusFunction.from_vk_and_instagram(is_token)
         case "0":
             exit()
         case _:
