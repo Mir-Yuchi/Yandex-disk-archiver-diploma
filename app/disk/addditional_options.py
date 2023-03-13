@@ -1,5 +1,6 @@
 import requests
-from app.keys import VK_TOKEN, VK_VERSION
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
 
 
 class PlusFunction:
@@ -24,11 +25,12 @@ class PlusFunction:
 
     @staticmethod
     def from_vk(is_token):
+        token = '34e9587d34e9587d34e9587de337fbbcb8334e934e9587d50e929d9a48d0e9356ae13c5'
         domain = input("Enter VK id or username --> ")
         res = requests.get('https://api.vk.com/method/wall.get',
                            params={
-                               'access_token': VK_TOKEN,
-                               'v': VK_VERSION,
+                               'access_token': token,
+                               'v': 5.131,
                                'domain': domain
                            }).json()
         total = res['response']['count']
@@ -77,3 +79,31 @@ class PlusFunction:
                 return PlusFunction.manually(is_token)
         name = f"/{folder_name}/photo.jpg"
         PlusFunction.upload_by_url(is_token, name, url)
+
+    @staticmethod
+    def from_instagram(is_token):
+        url = input("Enter url --> ")
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        soup = soup.find_all('meta', property='og:image')
+        soup = [urljoin(url, i['content']) for i in soup]
+        url_photo: str = soup[0]
+        url_photo.replace('[', '').replace(']', '')
+        folder_name: str
+        folder = input("\n\tChoose option: \n"
+                       "\t1 - Upload to existing folder \U0001F4C1 \n"
+                       "\t2 - Use default folder  \U0001F4C1 \n")
+
+        match folder:
+            case "1":
+                folder_name = input("Enter folder name --> ")
+            case "2":
+                folder_name = "images_from_instagram"
+                requests.put(f"https://cloud-api.yandex.net/v1/disk/resources/?path=%2F{folder_name}",
+                             headers={'Authorization': f'OAuth {is_token}'}).json()
+            case _:
+                print("Wrong option \U0001F6AB")
+                return PlusFunction.from_vk(is_token)
+
+        name = f"/{folder_name}/photo.jpg"
+        PlusFunction.upload_by_url(is_token, name, url_photo)
