@@ -82,7 +82,7 @@ class PlusFunction:
 
     @staticmethod
     def from_instagram(is_token):
-        url = input("Enter url --> ")
+        url = input("Enter url to the post --> ")
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
         soup = soup.find_all('meta', property='og:image')
