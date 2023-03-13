@@ -2,8 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from app.disk import run
-class PlusFunction:
 
+
+class PlusFunction:
     @staticmethod
     def upload_by_url(is_token, path, url):
         resources = 'https://cloud-api.yandex.net/v1/disk/resources/'
